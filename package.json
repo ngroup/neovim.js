@@ -1,5 +1,5 @@
 {
-  "name": "neovim.js",
+  "name": "neovim",
   "version": "0.0.0",
   "description": "A Neovim client build on top of Node.js",
   "main": "index.js",
