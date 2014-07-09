@@ -16,7 +16,7 @@ $ npm install msgpack-js
 and [neovim.js](https://github.com/ngroup/neovim.js)
 
 ```sh
-$ npm install neovim
+$ npm install git://github.com/ngroup/neovim.js.git
 ```
 
 ## Usage
