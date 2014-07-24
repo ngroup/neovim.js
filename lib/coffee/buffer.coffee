@@ -1,9 +1,9 @@
 ###*
-# Buffer manipulation
+# Initialize a new `Buffer` with the given `index` and `client`.
+# @class Represent a Buffer
+# @param {int} index - The buffer index
+# @param {Client} client - The buffer index
 ###
-
-
-
 Buffer = (index, client) ->
   @index = index
   @client = client
@@ -13,8 +13,8 @@ Buffer = (index, client) ->
 ###*
 # Get lines on the buffer
 # @param {int} from - The first line index
-# @param {int} [to=from] - The Last line index
-# @return Promise object
+# @param {int} [to=from] - The last line index
+# @returns {Promise.<string|Error>}
 ###
 Buffer::get_line = ->
   from = arguments[0]
@@ -29,7 +29,7 @@ Buffer::get_line = ->
 # @param {int} from - The first line index
 # @param {int} [to=from] - The Last line index
 # @param {string[]} content - An array of strings to use as replacement
-# @return
+# @returns {Promise}
 ###
 Buffer::set_line = ->
   from = arguments[0]
@@ -57,7 +57,7 @@ Buffer::set_line = ->
 ###*
 # Delete a line on the buffer
 # @param {int} index - The line index
-# @return
+# @returns {Promise}
 ###
 Buffer::delete_line = (index) ->
   @client.send_method('buffer_del_line', @index, index)
@@ -65,12 +65,10 @@ Buffer::delete_line = (index) ->
 
 ###*
 # Get the buffer line count
-# @return
+# @returns {Promise}
 ###
 Buffer::get_length = ->
   @client.send_method('buffer_get_length', @index)
 
 
-exports.create_buffer = (index, client) ->
-  buffer = new Buffer(index, client)
-  return buffer
+exports.Buffer = Buffer

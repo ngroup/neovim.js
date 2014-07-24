@@ -1,0 +1,10 @@
+{
+	"tags"      : {
+		"allowUnknownTags" : true
+	},
+    "source": {
+        "exclude": ["lib/msgpack-rpc.js"],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+}

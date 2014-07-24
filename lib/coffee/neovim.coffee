@@ -1,15 +1,14 @@
-rpc = require('./msgpack-rpc')
 events = require('events')
-buffer = require('./buffer.js')
 Q = require('when')
+buffer = require('./buffer.js')
+rpc = require('./msgpack-rpc')
+
 
 
 neovim_method_list = [
   'vim_command',
-  'vim_err_write',
   'vim_eval',
   'vim_get_current_buffer',
-  'vim_out_write',
   'vim_push_keys',
   'vim_get_buffers',
   'buffer_get_length',
@@ -20,18 +19,22 @@ neovim_method_list = [
   'buffer_del_line',
 ]
 
-
+###*
+# Initialize a new `Client` with the given `address`.
+# @class Represent a Neovim client
+# @param {string} address - The address of Neovim
+###
 Client = (address) ->
   @client = rpc.createClient address, ->
     console.log('neovim connected')
     return
 
-  @next_request_id = 1
   @pending_message = []
   @apiResolved = false
   @neovim_method_dict = {}
 
   return
+
 
 Client::listenRPCStatus = ->
   rpcStatus = new events.EventEmitter()
@@ -50,6 +53,27 @@ Client::listenRPCStatus = ->
   )
 
   return rpcStatus
+
+
+Client::send_method = ->
+  deferred = Q.defer()
+  method_name = arguments[0]
+  i = 1
+  args = []
+  cb = arguments[arguments.length - 1]
+
+  if typeof cb == 'function'
+    while i < arguments.length - 1
+      args.push arguments[i]
+      i++
+  else
+    while i < arguments.length
+      args.push arguments[i]
+      i++
+
+  @pending_message.push([method_name, args, deferred])
+  @rpcStatus.emit('addNewMessage')
+  return deferred.promise
 
 
 Client::push_queue = ->
@@ -93,48 +117,87 @@ Client::discover_api = ->
   return
 
 
+###*
+# Send vim command
+# @param {string} args - The command string
+# @returns {Promise.<null|Error>}
+###
 Client::command = (args)->
   @send_method('vim_command', args)
-  return
 
 
+###*
+# Send keys to vim input buffer
+# @param {string} args - The string as the keys to send
+# @returns {Promise.<null|Error>}
+###
+Client::push_keys = (args)->
+  @send_method('vim_push_keys', args)
+
+
+###*
+# Evaluate the expression string using the vim internal expression
+# @param {string} args - String to be evaluated
+# @returns {Promise.<null|Error>}
+###
+Client::eval = (args)->
+  @send_method('vim_eval', args)
+
+
+###*
+# Get all current buffers
+# @example
+# client.get_buffers().then(function (buffers) {
+#   buffers[0].someBufferMethod();
+#   ...
+# });
+# @returns {Promise.<{Buffer[]}|Error>}
+###
+Client::get_buffers = ->
+  deferred = Q.defer()
+  self = @
+  @send_method('vim_get_buffers')
+    .then((buf_idx_list) ->
+      buf_list = buf_idx_list.map((buf_idx) ->
+        return new buffer.Buffer(buf_idx, self)
+      )
+      return deferred.resolve(buf_list)
+    )
+  return deferred.promise
+
+
+###*
+# Get current buffer
+# @example
+# client.get_current_buffer().then(function (buffer) {
+#   buffer.someBufferMethod();
+#   ...
+# });
+# @returns {Promise.<{Buffer}|Error>}
+###
 Client::get_current_buffer = ->
   deferred = Q.defer()
   self = @
   @get_current_buffer_index()
-    .then( (index) ->
-      current_buffer = new buffer.create_buffer(index, self)
+    .then((index) ->
+      current_buffer = new buffer.Buffer(index, self)
       return deferred.resolve(current_buffer)
     )
   return deferred.promise
 
 
+###*
+# Get index of current buffer
+# @returns {Promise.<int|Error>}
+###
 Client::get_current_buffer_index = ->
   @send_method('vim_get_current_buffer')
 
 
-Client::send_method = ->
-  deferred = Q.defer()
-  method_name = arguments[0]
-  i = 1
-  args = []
-  cb = arguments[arguments.length - 1]
-
-  if typeof cb == 'function'
-    while i < arguments.length - 1
-      args.push arguments[i]
-      i++
-  else
-    while i < arguments.length
-      args.push arguments[i]
-      i++
-
-
-  @pending_message.push([method_name, args, deferred])
-  @rpcStatus.emit('addNewMessage')
-  return deferred.promise
-
-
+###*
+# Connect to Neovim and create an instance of Client
+# @returns {Client}
+###
 connect = (address) ->
   client = new Client(address)
   client.rpcStatus = client.listenRPCStatus()
@@ -142,4 +205,5 @@ connect = (address) ->
   return client
 
 
+# Expose `connect`
 exports.connect = connect
