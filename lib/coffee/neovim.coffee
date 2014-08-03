@@ -1,6 +1,7 @@
 events = require('events')
 Q = require('when')
 buffer = require('./buffer.js')
+window = require('./window.js')
 rpc = require('./msgpack-rpc')
 
 
@@ -17,6 +18,7 @@ neovim_method_list = [
   'buffer_get_slice',
   'buffer_set_slice',
   'buffer_del_line',
+  'vim_get_current_window'
 ]
 
 ###*
@@ -192,6 +194,34 @@ Client::get_current_buffer = ->
 ###
 Client::get_current_buffer_index = ->
   @send_method('vim_get_current_buffer')
+
+
+###*
+# Get current window
+# @example
+# client.get_current_window().then(function (window) {
+#   window.someWindowMethod();
+#   ...
+# });
+# @returns {Promise.<{Window}|Error>}
+###
+Client::get_current_window = ->
+  deferred = Q.defer()
+  self = @
+  @get_current_window_index()
+    .then((index) ->
+      current_window = new window.Window(index, self)
+      return deferred.resolve(current_window)
+    )
+  return deferred.promise
+
+
+###*
+# Get index of current window
+# @returns {Promise.<int|Error>}
+###
+Client::get_current_window_index = ->
+  @send_method('vim_get_current_window')
 
 
 ###*

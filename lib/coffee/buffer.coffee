@@ -2,7 +2,7 @@
 # Initialize a new `Buffer` with the given `index` and `client`.
 # @class Represent a Buffer
 # @param {int} index - The buffer index
-# @param {Client} client - The buffer index
+# @param {Client} client - The client object
 ###
 Buffer = (index, client) ->
   @index = index
