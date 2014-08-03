@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+    
+    Neovim.js
+    
+
+    </title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.css">
+</head>
+
+<body>
+<div class="row">
+<nav class="sidebar large-3 columns">
+    <h1><a href="index.html">Neovim.js</a></h1><p>A Neovim client build on top of Node.js.</p><div class="githubButtons"><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=fork&count=false" allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe></div><h2>Table of Contents</h2><h3>Classes</h3><ul><li><a href="Buffer.html">Buffer</a></li><li><a href="Client.html">Client</a></li><li><a href="Window.html">Window</a></li></ul><h3>Global</h3><ul><li><a href="global.html#connect">connect</a></li></ul><h2>Links</h2><ul><li><a href="https://github.com/ngroup/neovim.js">GitHub Project</a></li></ul>
+</nav>
+
+<div class="large-9 columns" id="main">
+
+    
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Neovim.js</h1><p>A <a href="https://github.com/neovim/neovim">Neovim</a> client build on top of Node.js.</p>
+<p><em>Warning: This project is currently incomplete and under heavy construction. Please use it at your own risk.</em></p>
+<h2>Installation</h2><p>Install <a href="https://github.com/ngroup/neovim.js">Neovim.js</a></p>
+<pre class="prettyprint source lang-sh"><code>$ npm install git://github.com/ngroup/neovim.js.git</code></pre><h2>Usage</h2><p>Start up Neovim with $NEOVIM_LISTEN_ADDRESS specified.</p>
+<pre class="prettyprint source lang-sh"><code>$ NEOVIM_LISTEN_ADDRESS=/tmp/neovim nvim</code></pre><p>Require <code>neovim</code> and instantiate a <code>client</code> by <code>neovim.connect(path)</code>:</p>
+<pre class="prettyprint source lang-js"><code>var neovim = require('neovim');
+var client = neovim.connect('/tmp/neovim');</code></pre><p>Now you can try to manipulate your Neovim:</p>
+<pre class="prettyprint source lang-js"><code>client.command(':split');
+client.command(':vsplit');</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+</div>
+<br clear="both">
+
+<footer>
+<div class="row">
+<div class="right">
+<span>
+© Copyright 2014, Chun Nien.
+Created using <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> and
+<a href="https://github.com/ngroup/movabletype">MovableType template</a>.
+</span>
+    </div>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+    
+    Class: Client | Neovim.js
+    
+
+    </title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.css">
+</head>
+
+<body>
+<div class="row">
+<nav class="sidebar large-3 columns">
+    <h1><a href="index.html">Neovim.js</a></h1><p>A Neovim client build on top of Node.js.</p><div class="githubButtons"><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=fork&count=false" allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe></div><h2>Table of Contents</h2><h3>Classes</h3><ul><li><a href="Buffer.html">Buffer</a></li><li><a href="Client.html">Client</a></li><li><a href="Window.html">Window</a></li></ul><h3>Global</h3><ul><li><a href="global.html#connect">connect</a></li></ul><h2>Links</h2><ul><li><a href="https://github.com/ngroup/neovim.js">GitHub Project</a></li></ul>
+</nav>
+
+<div class="large-9 columns" id="main">
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+    Client
+    </h2>
+    
+        <div class="class-description"><p>Represent a Neovim client</p></div>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="method-name" id="Client"><span class="type-signature"></span>new Client<span class="signature"><big>(</big><em>address</em><big>)</big></span><span class="type-signature"></span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Initialize a new <code>Client</code> with the given <code>address</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The address of Neovim</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line22">line 22</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="method-name" id="command"><span class="type-signature"></span>command<span class="signature"><big>(</big><em>args</em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;null, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Send vim command</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The command string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;null, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line122">line 122</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="get_buffers"><span class="type-signature"></span>get_buffers<span class="signature"><big>(</big><em></em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;Object, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Get all current buffers</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;Object, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code><div class="code-container">client.get_buffers().then(function (buffers) {
+  buffers[0].someBufferMethod();
+  ...
+});</div></code></pre>
+
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line159">line 159</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="get_current_buffer"><span class="type-signature"></span>get_current_buffer<span class="signature"><big>(</big><em></em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;Object, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Get current buffer</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;Object, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code><div class="code-container">client.get_current_buffer().then(function (buffer) {
+  buffer.someBufferMethod();
+  ...
+});</div></code></pre>
+
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line184">line 184</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="get_current_buffer_index"><span class="type-signature"></span>get_current_buffer_index<span class="signature"><big>(</big><em></em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;int, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Get index of current buffer</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;int, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line202">line 202</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="get_current_window"><span class="type-signature"></span>get_current_window<span class="signature"><big>(</big><em></em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;Object, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Get current window</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;Object, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code><div class="code-container">client.get_current_window().then(function (window) {
+  window.someWindowMethod();
+  ...
+});</div></code></pre>
+
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line217">line 217</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="get_current_window_index"><span class="type-signature"></span>get_current_window_index<span class="signature"><big>(</big><em></em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;int, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Get index of current window</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;int, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line235">line 235</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="method-name" id="push_keys"><span class="type-signature"></span>push_keys<span class="signature"><big>(</big><em>args</em><big>)</big></span><span class="type-signature"> &rarr; {Promise.&lt;null, Error>}</span></h4>
+
+
+
+    
+</dt>
+<dd class="method-desc">
+
+    
+    <div class="description">
+        <p>Send keys to vim input buffer</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string as the keys to send</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            <div class="returns">
+
+<dl>
+
+
+        
+<span class="param-type">Promise.&lt;null, Error></span>
+
+
+
+
+
+
+
+</dl>
+</div>
+
+        
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt><a href="neovim.js.html">neovim.js</a>, <a href="neovim.js.html#line133">line 133</a>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+</div>
+<br clear="both">
+
+<footer>
+<div class="row">
+<div class="right">
+<span>
+© Copyright 2014, Chun Nien.
+Created using <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> and
+<a href="https://github.com/ngroup/movabletype">MovableType template</a>.
+</span>
+    </div>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

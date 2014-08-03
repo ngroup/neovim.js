@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+    
+    Source: buffer.js | Neovim.js
+    
+
+    </title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.css">
+</head>
+
+<body>
+<div class="row">
+<nav class="sidebar large-3 columns">
+    <h1><a href="index.html">Neovim.js</a></h1><p>A Neovim client build on top of Node.js.</p><div class="githubButtons"><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=fork&count=false" allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe><iframe src="http://ghbtns.com/github-btn.html?user=ngroup&repo=neovim.js&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe></div><h2>Table of Contents</h2><h3>Classes</h3><ul><li><a href="Buffer.html">Buffer</a></li><li><a href="Client.html">Client</a></li><li><a href="Window.html">Window</a></li></ul><h3>Global</h3><ul><li><a href="global.html#connect">connect</a></li></ul><h2>Links</h2><ul><li><a href="https://github.com/ngroup/neovim.js">GitHub Project</a></li></ul>
+</nav>
+
+<div class="large-9 columns" id="main">
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * Initialize a new `Buffer` with the given `index` and `client`.
+ * @class Represent a Buffer
+ * @param {int} index - The buffer index
+ * @param {Client} client - The client object
+ */
+var Buffer;
+
+Buffer = function(index, client) {
+  this.index = index;
+  this.client = client;
+};
+
+
+/**
+ * Get lines on the buffer
+ * @param {int} from - The first line index
+ * @param {int} [to=from] - The last line index
+ * @returns {Promise.&lt;string|Error>}
+ */
+
+Buffer.prototype.get_line = function() {
+  var from, to;
+  from = arguments[0];
+  to = from;
+  if ((typeof arguments[1] === 'number') &amp;&amp; (parseInt(arguments[1]) === arguments[1])) {
+    to = arguments[1];
+  }
+  return this.client.send_method('buffer_get_slice', this.index, from, to, true, true);
+};
+
+
+/**
+ * Replace lines on the buffer
+ * @param {int} from - The first line index
+ * @param {int} [to=from] - The Last line index
+ * @param {string[]} content - An array of strings to use as replacement
+ * @returns {Promise}
+ */
+
+Buffer.prototype.set_line = function() {
+  var content, from, self, to;
+  from = arguments[0];
+  to = from;
+  if ((typeof arguments[1] === 'number') &amp;&amp; (parseInt(arguments[1]) === arguments[1])) {
+    to = arguments[1];
+  }
+  content = arguments[arguments.length - 1];
+  self = this;
+  return this.get_length().then(function(buffer_length) {
+    var gap, keep;
+    if (from >= buffer_length) {
+      gap = from - buffer_length;
+      keep = buffer_length - 1;
+      return self.get_line(keep).then(function(keep_content) {
+        var num, _i;
+        if (gap !== 0) {
+          for (num = _i = 1; 1 &lt;= gap ? _i &lt;= gap : _i >= gap; num = 1 &lt;= gap ? ++_i : --_i) {
+            content.unshift('');
+          }
+        }
+        content.unshift(keep_content[0]);
+        return self.client.send_method('buffer_set_slice', self.index, keep, to, true, true, content);
+      });
+    } else {
+      return self.client.send_method('buffer_set_slice', self.index, from, to, true, true, content);
+    }
+  });
+};
+
+
+/**
+ * Delete a line on the buffer
+ * @param {int} index - The line index
+ * @returns {Promise}
+ */
+
+Buffer.prototype.delete_line = function(index) {
+  return this.client.send_method('buffer_del_line', this.index, index);
+};
+
+
+/**
+ * Get the buffer line count
+ * @returns {Promise}
+ */
+
+Buffer.prototype.get_length = function() {
+  return this.client.send_method('buffer_get_length', this.index);
+};
+
+exports.Buffer = Buffer;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+</div>
+
+</div>
+<br clear="both">
+
+<footer>
+<div class="row">
+<div class="right">
+<span>
+© Copyright 2014, Chun Nien.
+Created using <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> and
+<a href="https://github.com/ngroup/movabletype">MovableType template</a>.
+</span>
+    </div>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
