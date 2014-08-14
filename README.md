@@ -1,4 +1,4 @@
-neovim.js
+Neovim.js
 =========
 
 A [Neovim](https://github.com/neovim/neovim) client build on top of Node.js.
@@ -7,7 +7,7 @@ A [Neovim](https://github.com/neovim/neovim) client build on top of Node.js.
 
 ## Installation
 
-Install [neovim.js](https://github.com/ngroup/neovim.js)
+Install [Neovim.js](https://github.com/ngroup/neovim.js)
 
 ```sh
 $ npm install git://github.com/ngroup/neovim.js.git
