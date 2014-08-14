@@ -1,10 +1,10 @@
 ###*
-# Initialize a new `Buffer` with the given `index` and `client`.
-# @class Represent a Buffer
+# Initialize a new `VimBuffer` with the given `index` and `client`.
+# @class Represent a VimBuffer
 # @param {int} index - The buffer index
 # @param {Client} client - The client object
 ###
-Buffer = (index, client) ->
+VimBuffer = (index, client) ->
   @index = index
   @client = client
   return
@@ -16,7 +16,7 @@ Buffer = (index, client) ->
 # @param {int} [to=from] - The last line index
 # @returns {Promise.<string|Error>}
 ###
-Buffer::get_line = ->
+VimBuffer::get_line = ->
   from = arguments[0]
   to = from
   if (typeof arguments[1] == 'number') && (parseInt(arguments[1]) == arguments[1])
@@ -31,7 +31,7 @@ Buffer::get_line = ->
 # @param {string[]} content - An array of strings to use as replacement
 # @returns {Promise}
 ###
-Buffer::set_line = ->
+VimBuffer::set_line = ->
   from = arguments[0]
   to = from
   if (typeof arguments[1] == 'number') && (parseInt(arguments[1]) == arguments[1])
@@ -59,7 +59,7 @@ Buffer::set_line = ->
 # @param {int} index - The line index
 # @returns {Promise}
 ###
-Buffer::delete_line = (index) ->
+VimBuffer::delete_line = (index) ->
   @client.send_method('buffer_del_line', @index, index)
 
 
@@ -67,8 +67,8 @@ Buffer::delete_line = (index) ->
 # Get the buffer line count
 # @returns {Promise}
 ###
-Buffer::get_length = ->
+VimBuffer::get_length = ->
   @client.send_method('buffer_get_length', @index)
 
 
-exports.Buffer = Buffer
+exports.VimBuffer = VimBuffer
