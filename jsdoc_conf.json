@@ -23,8 +23,7 @@
     "copyright": "© Copyright 2014, Chun Nien.",
     "githubButtons": ["fork", "watchCount"],
     "links": {
-      "GitHub": "https://github.com/ngroup/neovim.js",
-      "GitHub project": "https://github.com/ngroup/neovim.js"
+      "GitHub Project": "https://github.com/ngroup/neovim.js"
     }
   },
   "opts": {
