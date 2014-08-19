@@ -5,7 +5,7 @@
 ###
 
 net = require("net")
-msgpack = require("msgpack")
+msgpack = require("neo-msgpack-js")
 events = require("events")
 sys = require("sys")
 
