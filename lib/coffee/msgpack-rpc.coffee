@@ -42,31 +42,34 @@ MsgpackRPCStream = (stream, handler) ->
   @timeout = `undefined`
   @msgpack_stream = new msgpack.Stream(@stream)
   @msgpack_stream.on "msg", (msg) ->
-    type = msg.shift()
-    switch type
-      when REQUEST
-        seqid = msg[0]
-        method = msg[1]
-        params = msg[2]
-        response = new RPCResponse(self, seqid)
-        self.invokeHandler method, params.concat(response)
-        self.emit "request", method, params, response
-      when RESPONSE
-        seqid = msg[0]
-        error = msg[1]
-        result = msg[2]
-        if self.cbs[seqid]
-          self.triggerCb seqid, [
-            error
-            result
-          ]
-        else
-          self.emit "error", new Error("unexpected response with unrecognized seqid (" + seqid + ")")
-      when NOTIFY
-        method = msg[0]
-        params = msg[1]
-        self.invokeHandler method, params
-        self.emit "notify", method, params
+    if msg instanceof Array
+      type = msg.shift()
+      switch type
+        when REQUEST
+          seqid = msg[0]
+          method = msg[1]
+          params = msg[2]
+          response = new RPCResponse(self, seqid)
+          self.invokeHandler method, params.concat(response)
+          self.emit "request", method, params, response
+        when RESPONSE
+          seqid = msg[0]
+          error = msg[1]
+          result = msg[2]
+          if self.cbs[seqid]
+            self.triggerCb seqid, [
+              error
+              result
+            ]
+          else
+            self.emit "error", new Error("unexpected response with unrecognized seqid (" + seqid + ")")
+        when NOTIFY
+          method = msg[0]
+          params = msg[1]
+          self.invokeHandler method, params
+          self.emit "notify", method, params
+    else
+      return
 
   @stream.on "connect", ->
     self.emit "ready"

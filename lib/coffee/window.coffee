@@ -9,21 +9,6 @@ VimWindow = (index, client) ->
   @client = client
   return
 
-###*
-# Gets the current buffer index in a window
-# @param window The window handle
-###
-VimWindow::get_buffer = ->
-  @client.send_method('window_get_buffer', @index)
-
-
-###*
-# Gets the window position in display cells. First position is zero.
-# @return {int[]} The [row, col] array with the window position
-###
-VimWindow::get_position = ->
-  @client.send_method('window_get_position', @index)
-
 
 ###*
 # Set the cursor position or get the current cursor position if no position
@@ -34,9 +19,9 @@ VimWindow::get_position = ->
 ###
 VimWindow::cursor = (row, col) ->
   if arguments.length == 0
-    @client.send_method('window_get_cursor', @index)
+    @get_cursor()
   else
-    @client.send_method('window_set_cursor', @index, [row, col])
+    @set_cursor([row, col])
 
 ###*
 # Set the window height or get the window height if no height value is given.
@@ -45,9 +30,9 @@ VimWindow::cursor = (row, col) ->
 ###
 VimWindow::height = (height) ->
   if arguments.length == 0
-    @client.send_method('window_get_height', @index)
+    @get_height()
   else
-    @client.send_method('window_set_height', @index, height)
+    @set_height(height)
 
 
 ###*
@@ -57,9 +42,9 @@ VimWindow::height = (height) ->
 ###
 VimWindow::width = (width) ->
   if arguments.length == 0
-    @client.send_method('window_get_width', @index)
+    @get_width()
   else
-    @client.send_method('window_set_width', @index, width)
+    @set_width(width)
 
 
 ###*
@@ -70,9 +55,9 @@ VimWindow::width = (width) ->
 ###
 VimWindow::var = (name, value) ->
   if arguments.length == 1
-    @client.send_method('window_get_var', @index, name)
+    @get_var(name)
   else
-    @client.send_method('window_set_var', @index, name, value)
+    @set_var(name, value)
 
 
 ###*
@@ -85,13 +70,8 @@ VimWindow::var = (name, value) ->
 ###
 VimWindow::option = (name, value) ->
   if arguments.length == 1
-    @client.send_method('window_get_option', @index, name)
+    @get_option(name)
   else
-    @client.send_method('window_set_option', @index, name, value)
-
-
-### TODO: window_get_tabpage()
-###
-
+    @set_option(name, value)
 
 exports.VimWindow = VimWindow
