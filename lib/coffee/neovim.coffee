@@ -6,13 +6,7 @@ vimWindow = require('./window.js')
 vimTabpage = require('./tabpage.js')
 
 
-construct_method = (name, id, params) ->
-  args = []
-  args_string = ''
-  for p in params
-    args.push p[1]
-    args_string += ',' + p[1]
-
+construct_method = (name, id) ->
   func_client = 'var args = Array.prototype.slice.call(arguments);' +
   'args.unshift(' + id.toString() + ');' +
   'return this.send_method.apply(this, args);'
@@ -65,7 +59,7 @@ Client::listenRPCStatus = ->
   )
 
   rpcStatus.on('addNewMessage', ->
-    if self.pending_message.length == 1 and self.apiResolved
+    if self.pending_message.length == 1
       self.rpcStatus.emit('free')
     return
   )
@@ -117,18 +111,15 @@ Client::discover_api = ->
   deferred = Q.defer()
   self = @
   @client.on 'ready', ->
-    self.client.invoke(0, [], (err, response) ->
-      if(!err)
-        self.channel_id = response[0]
-        api = response[1]
-        for method in api['functions']
-          construct_method(method.name, method.id, method.parameters)
-        self.apiResolved = true
-        self.rpcStatus.emit('free')
-        return deferred.resolve(response)
-      else
-        return deferred.reject(err)
-      return
+    self.send_method(0).then((response) ->
+      self.channel_id = response[0]
+      api = response[1]
+      for method in api['functions']
+        construct_method(method.name, method.id)
+      self.rpcStatus.emit('free')
+      return deferred.resolve(response)
+    ).catch((err) ->
+      return deferred.reject(err)
     )
     return
   return deferred.promise
