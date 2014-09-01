@@ -134,15 +134,8 @@ Client::discover_api = ->
   return deferred.promise
 
 
-
-
 ###*
-# Get all current buffers
-# @example
-# client.buffers().then(function (buffers) {
-#   buffers[0].someVimBufferMethod();
-#   ...
-# });
+# Get all buffers
 # @returns {Promise.<{VimBuffer[]}|Error>}
 ###
 Client::buffers = ->
@@ -158,61 +151,95 @@ Client::buffers = ->
   return deferred.promise
 
 
-
 ###*
-# Get current buffer
-# @example
-# client.get_current_buffer().then(function (buffer) {
-#   buffer.someVimBufferMethod();
-#   ...
-# });
-# @returns {Promise.<{VimBuffer}|Error>}
+# Get current buffer or set current buffer when buffer index is given.
+# @returns {Promise.<{VimBuffer[]}|Error>}
 ###
-Client::get_current_buffer = ->
+Client::current_buffer = (index) ->
   deferred = Q.defer()
   self = @
-  @get_current_buffer_index()
-    .then((index) ->
-      current_buffer = new vimBuffer.VimBuffer(index, self)
-      return deferred.resolve(current_buffer)
+  if (index == undefined || index == null)
+    @get_current_buffer().then((buf_idx) ->
+      buf = new vimBuffer.VimBuffer(buf_idx, self)
+      return deferred.resolve(buf)
+    )
+  else
+    @set_current_buffer(index).then( ->
+      return deferred.resolve()
     )
   return deferred.promise
 
 
 ###*
-# Get index of current buffer
-# @returns {Promise.<int|Error>}
-###
-Client::get_current_buffer_index = ->
-  @send_method('vim_get_current_buffer')
-
-
-###*
-# Get current window
-# @example
-# client.get_current_window().then(function (window) {
-#   window.someWindowMethod();
-#   ...
-# });
+# Get all windows
 # @returns {Promise.<{Window}|Error>}
 ###
-Client::get_current_window = ->
+Client::windows = ->
   deferred = Q.defer()
   self = @
-  @get_current_window_index()
-    .then((index) ->
-      current_window = new vimWindow.VimWindow(index, self)
-      return deferred.resolve(current_window)
+  @get_windows()
+    .then((win_idx_list) ->
+      win_list = win_idx_list.map((win_idx) ->
+        return new vimWindow.VimWindow(win_idx, self)
+      )
+      return deferred.resolve(win_list)
     )
   return deferred.promise
 
 
 ###*
-# Get index of current window
-# @returns {Promise.<int|Error>}
+# Get current window or set current window when window index is given.
+# @returns {Promise.<{Vimwindow[]}|Error>}
 ###
-Client::get_current_window_index = ->
-  @send_method('vim_get_current_window')
+Client::current_window = (index) ->
+  deferred = Q.defer()
+  self = @
+  if (index == undefined || index == null)
+    @get_current_window().then((win_idx) ->
+      win = new vimWindow.VimWindow(win_idx, self)
+      return deferred.resolve(win)
+    )
+  else
+    @set_current_window(index).then( ->
+      return deferred.resolve()
+    )
+  return deferred.promise
+
+
+###*
+# Get all tabpages
+# @returns {Promise.<{tabpage}|Error>}
+###
+Client::tabpages = ->
+  deferred = Q.defer()
+  self = @
+  @get_tabpages()
+    .then((tab_idx_list) ->
+      tab_list = tab_idx_list.map((tab_idx) ->
+        return new vimTabpage.VimTabpage(tab_idx, self)
+      )
+      return deferred.resolve(tab_list)
+    )
+  return deferred.promise
+
+
+###*
+# Get current tabpage or set current tabpage when tabpage index is given.
+# @returns {Promise.<{Vimtabpage[]}|Error>}
+###
+Client::current_tabpage = (index) ->
+  deferred = Q.defer()
+  self = @
+  if (index == undefined || index == null)
+    @get_current_tabpage().then((tab_idx) ->
+      tab = new vimTabpage.VimTabpage(tab_idx, self)
+      return deferred.resolve(tab)
+    )
+  else
+    @set_current_tabpage(index).then( ->
+      return deferred.resolve()
+    )
+  return deferred.promise
 
 
 ###*
