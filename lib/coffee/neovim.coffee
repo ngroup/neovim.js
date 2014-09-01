@@ -1,9 +1,9 @@
 events = require('events')
 Q = require('when')
+rpc = require('neo-msgpack-rpc')
 vimBuffer = require('./buffer.js')
 vimWindow = require('./window.js')
 vimTabpage = require('./tabpage.js')
-rpc = require('./msgpack-rpc')
 
 
 construct_method = (name, id, params) ->

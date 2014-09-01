@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "A Neovim client build on top of Node.js",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ngroup/neovim.js"
@@ -22,7 +19,7 @@
   },
   "homepage": "https://github.com/ngroup/neovim.js",
   "dependencies": {
-    "neo-msgpack-js": "git+https://github.com/ngroup/neo-msgpack-js.git",
+    "neo-msgpack-rpc": "0.0.1",
     "when": "^3.4.4"
   }
 }
