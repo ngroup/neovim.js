@@ -40,8 +40,6 @@ construct_method = (name, id) ->
 ###
 Client = (address) ->
   @pending_message = []
-  @apiResolved = false
-  @neovim_method_dict = {}
   @client = rpc.createClient address, ->
     return
 
